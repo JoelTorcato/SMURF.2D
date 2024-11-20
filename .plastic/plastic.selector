@@ -1,0 +1,3 @@
+repository "2D PROJECTS@joeltorcato@cloud"
+  path "/"
+    smartbranch "/main"
