@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f; // [SerializeField] torna uma variável privada visível no Inspector
-    [SerializeField] private float jumpForce = 14f; 
+    [SerializeField] private float jumpForce = 14f;
     // Start is called before the first frame update
 
     private enum MovementState { idle, running, jumping, falling } // Fizemos uma enumeração de todos os estados do personagem
@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
         rb2D.velocity = new Vector2 /* o 'Vector2' é usado para jogos 2D */ (dirX * moveSpeed /* 7f */, rb2D.velocity.y); // rb.velocity.y (Junmp) = 0
 
 
-        if (Input.GetButtonDown("Jump") && IsGrounded()) // ou GetKeyDown("space")
+        if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.UpArrow) && IsGrounded()) // ou GetKeyDown("space")
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(rb2D.velocity.x, jumpForce); // O Vector3 é uzado para jogos 3D
         }
@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateAnimationState() {
         MovementState state;
 
-        if (dirX > 0f) // O personagem anda para a direita 
+        if (dirX > 0f) // O personagem anda para a direita
         {
             state = MovementState.running; // ou anim.SetBool("running", true)
             sprite.flipX = false; // O personagem continua virado para a direita
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         {
             state = MovementState.running; // ou anim.SetBool("running", true)
             sprite.flipX = true; // O personagem vira para esquerda
-        } 
+        }
         else // O personagem está parado
         {
             state = MovementState.idle; // ou anim.SetBool("running", false)
